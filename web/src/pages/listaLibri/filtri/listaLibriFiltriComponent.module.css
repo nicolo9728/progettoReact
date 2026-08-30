@@ -1,0 +1,17 @@
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #dcdcdc;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #000000;
+  font-weight: normal;
+}

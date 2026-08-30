@@ -1,0 +1,13 @@
+{
+  "name": "@biblioteca/common",
+  "version": "1.0.0",
+  "main": "./src/main.ts",
+  "types": "./src/main.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,37 @@
+.page {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 80px 1fr;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #1E1B1B;
+    padding: 10px;
+    color: #FFFFFF;
+
+    h1 {
+        flex-grow: 1;
+    }
+
+    nav {
+        display: flex;
+        width: 250px;
+        justify-content: space-around;
+        a {
+            font-size: 20px;
+        }
+    }
+}
+
+.main {
+    height: 100%;
+    min-height: 0;
+}
+
+.utente-loggato{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}

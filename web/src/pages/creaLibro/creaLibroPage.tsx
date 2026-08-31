@@ -37,6 +37,7 @@ export const CreaLibroPage = () => {
                     <input type="text" placeholder="isbn" name="isbn" maxLength={13} minLength={13} required />
                     <input type="text" placeholder="titolo" name="titolo" required />
                     <textarea name="trama" placeholder="trama" required></textarea>
+                    <input type="text" placeholder="genere" name="genere"/>
                     <input type="file" name="immagine" />
                     <button>Crea</button>
                 </form>

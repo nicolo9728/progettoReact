@@ -46,7 +46,7 @@ export const ListaPrestitiPage = () => {
                     </thead>
                     <tbody>
                         {prestiti.map((p) => (
-                            <tr key={p.id}>
+                            <tr key={p.id} style={{backgroundColor: p.isScaduto ? "red" : "unset"}}>
                                 <td>{p.libro.titolo}</td>
                                 <td>{p.momentoPrestito}</td>
                                 <td>{p.stato.stato}</td>

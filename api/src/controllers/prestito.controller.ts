@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, ForbiddenException, Get, InternalServerErrorException, NotFoundException, Post, Query, Req, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, ForbiddenException, Get, InternalServerErrorException, NotFoundException, Param, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { UnitOfWork } from "../database/unitOfWork";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/jwt.guard";
@@ -25,6 +25,29 @@ export class PrestitoController {
             return {
                 stato: status.tipo
             }
+    }
+
+    @Post(":idPrestito/restituzione")
+    @UseGuards(JwtAuthGuard, JwtRolesGuard)
+    @Roles(Role.Admin)
+    public async restituzione(@Param("idPrestito") idPrestito: number){
+        return this.unitOfWork.execute(async (rep)=>{
+            const prestito = await rep.prestitoRepository.getPrestitoById(idPrestito)
+            if(!prestito)
+                throw new NotFoundException("Prestito non trovato")
+            
+            const libro = await rep.libroRepository.getLibroByIsbn(prestito.idLibro)
+            if(!libro)
+                throw new NotFoundException("Libro non trovato")
+            
+            prestito.restituisci(new Date(Date.now()))
+            libro.restituisciCopia()
+
+            await rep.libroRepository.save(libro)
+            await rep.prestitoRepository.save(prestito)
+
+            return {message: "Ok"}
+        })
     }
 
     @Get()

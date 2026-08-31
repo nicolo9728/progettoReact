@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { LayoutPaginaComponent } from "../../components/layoutPagina"
 import type { PrestitoViewModel } from "@biblioteca/common"
 import { useApiEndpoint } from "../../hooks/apiHook"
-import { useParams, useSearchParams } from "react-router-dom"
-import { useUser } from "../../hooks/userHook"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { AuthComponent } from "../../components/authComponent"
 
 export const ListaPrestitiPage = () => {
 
@@ -13,10 +13,19 @@ export const ListaPrestitiPage = () => {
 
     const idUtente = searchParams.get("idUtente")
 
-    useEffect(() => {
+    const loadLista = async ()=>{
         if(idUtente)
-            api.get<PrestitoViewModel[]>(`prestiti?idUtente=${idUtente}`).then(setPrestiti)
-    }, [idUtente])
+            await api.get<PrestitoViewModel[]>(`prestiti?idUtente=${idUtente}`).then(setPrestiti)
+    }
+
+    useEffect(() => {
+        loadLista()
+    }, [])
+
+    const restituisci = async (idPrestito: number)=>{
+        await api.post(`prestiti/${idPrestito}/restituzione`, {})
+        await loadLista()
+    }
 
     return (
         <LayoutPaginaComponent>
@@ -30,7 +39,9 @@ export const ListaPrestitiPage = () => {
                             <th>stato</th>
                             <th>momento restituzione</th>
                             <th>Scaduto</th>
-                            <th>Operazioni</th>
+                            <AuthComponent ruoli={["Admin"]}>
+                                <th>Operazioni</th>
+                            </AuthComponent>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +52,9 @@ export const ListaPrestitiPage = () => {
                                 <td>{p.stato.stato}</td>
                                 <td>{p.stato.stato == "Restituito" ? p.stato.momentoRestituzione : "Non definita"}</td>
                                 <td>{p.isScaduto ? "Scaduto" : "Non scaduto"}</td>
-                                <td>{p.stato.stato == "Non restituito" ? <button>Restituisci</button> : <></>}</td>
+                                <AuthComponent ruoli={["Admin"]}>
+                                    <td>{p.stato.stato == "Non restituito" ? <button onClick={()=>restituisci(p.id)}>Restituisci</button> : <></>}</td>
+                                </AuthComponent>
                             </tr>
                         ))}
                     </tbody>

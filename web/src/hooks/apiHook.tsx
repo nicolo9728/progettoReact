@@ -26,7 +26,8 @@ class ApiService {
     const response = await fetch(url, config);
 
     if (!response.ok) {
-      throw new Error(`Errore HTTP ${response.status}: ${response.statusText}`);
+      const res = await response.json()
+      throw new Error(res["message"]);
     }
 
 

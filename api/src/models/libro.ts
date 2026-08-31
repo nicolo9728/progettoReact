@@ -7,6 +7,10 @@ export class QuantitaDisponibile {
     public riduciScorta(): QuantitaDisponibile {
         return new QuantitaDisponibile(this.valore - 1)
     }
+
+    public aumentaScora(): QuantitaDisponibile {
+        return new QuantitaDisponibile(this.valore + 1)
+    }
 }
 
 export class Libro {
@@ -22,5 +26,7 @@ export class Libro {
 
     public isDisponibile() { return this.quantita.valore > 0 }
 
-    public prendiPrestito() { this._quantita = this._quantita.riduciScorta() }
+    public prelevaCopia() { this._quantita = this._quantita.riduciScorta() }
+
+    public restituisciCopia() { this._quantita = this._quantita.aumentaScora() }
 }

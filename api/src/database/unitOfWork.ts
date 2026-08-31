@@ -2,18 +2,20 @@ import { Pool, PoolClient } from "pg";
 import { UtenteRepository } from "./repositories/utenteRepository";
 import { Inject, Injectable, Scope } from "@nestjs/common";
 import { LibroRepository } from "./repositories/libroRepository";
+import { PrestitoRepository } from "./repositories/prestitoRepository";
 
 export type Repositories = {
   utenteRepository: UtenteRepository,
-  libroRepository: LibroRepository
+  libroRepository: LibroRepository,
+  prestitoRepository: PrestitoRepository
 }
 
-@Injectable({scope: Scope.REQUEST})
+@Injectable({ scope: Scope.REQUEST })
 export class UnitOfWork {
   private client: PoolClient | null = null;
   public repositories: Repositories | null = null;
 
-  constructor(@Inject("DATABASE_POOL") private pool: Pool) {}
+  constructor(@Inject("DATABASE_POOL") private pool: Pool) { }
 
 
   async execute<T>(work: (repos: Repositories) => Promise<T>): Promise<T> {
@@ -23,7 +25,8 @@ export class UnitOfWork {
       await this.client.query('BEGIN');
       this.repositories = {
         utenteRepository: new UtenteRepository(this.client),
-        libroRepository: new LibroRepository(this.client)
+        libroRepository: new LibroRepository(this.client),
+        prestitoRepository: new PrestitoRepository(this.client)
       };
 
       const result = await work(this.repositories);

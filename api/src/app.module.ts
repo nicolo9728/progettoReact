@@ -7,10 +7,11 @@ import { ConfigModule } from '@nestjs/config';
 import { StorageService } from './services/storageService';
 import { AuthModule } from './auth/auth.module';
 import { GetLibroByIsbnQuery } from './database/queries/getLibroByIsbnQuery';
+import { PrestitoController } from './controllers/prestito.controller';
 
 @Module({
   imports: [DatabaseModule, ConfigModule.forRoot({ isGlobal: true }), AuthModule],
-  controllers: [LibriController],
+  controllers: [LibriController, PrestitoController],
   providers: [QueryExecutor, GetLibroByIsbnQuery, GetLibriQuery ,StorageService],
 })
 export class AppModule { }

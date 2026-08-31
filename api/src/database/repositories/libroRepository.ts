@@ -40,7 +40,8 @@ export class LibroRepository {
             libro.titolo,
             libro.immagine,
             libro.trama,
-            libro.quantita.valore
+            libro.quantita.valore,
+            libro.genere
         ];
 
         await this.client.query(queryText, values);

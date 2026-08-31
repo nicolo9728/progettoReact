@@ -58,10 +58,10 @@ export class PrestitoController {
 
         const prestiti = await this.unitOfWork.repositories
             .prestitoRepository
-            .getPrestitiUtente(currentUser.userId)
+            .getPrestitiUtente(idUtente)
 
         const titoliPrestiti = new Map(
-            (await this.getPrestitiQuery.query({ idUtente: currentUser.userId })).map((p) => [p.id, p.titolo])
+            (await this.getPrestitiQuery.query({ idUtente: idUtente })).map((p) => [p.id, p.titolo])
         )
 
         return prestiti.map<PrestitoViewModel>((p) => ({

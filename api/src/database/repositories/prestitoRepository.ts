@@ -40,7 +40,7 @@ export class PrestitoRepository {
     }
 
     public async hasActivePrestito(idUtente: number): Promise<boolean>{
-        const ris = await this.client.query("SELECT 1 FROM Prestiti WHERE id_utente=$1 and stato='Non restituito'", [idUtente])
+        const ris = await this.client.query("SELECT * FROM Prestiti WHERE id_utente=$1 and stato='Non restituito'", [idUtente])
 
         return ris.rowCount! > 0
     }

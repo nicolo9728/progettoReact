@@ -14,7 +14,7 @@ export class GetLibriQuery extends QueryHandler<RisultatoPaginatoViewModel<Libro
 
     public query(parametri: QueryParameter): Promise<RisultatoPaginatoViewModel<LibroViewModel>> {
         return this.queryExecutor
-            .queryPaginated(`SELECT isbn, titolo, immagine FROM libri ${parametri.filtro.query}`,
+            .queryPaginated(`SELECT isbn, titolo, immagine FROM libri ${parametri.filtro.query} ORDER BY titolo`,
                 parametri.filtro.parametri,
                 parametri.filtro.pagina,
                 this.config.get<number>("PAGE_SIZE")

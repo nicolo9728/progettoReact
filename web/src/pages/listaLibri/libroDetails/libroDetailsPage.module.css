@@ -1,0 +1,41 @@
+.libro-details-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.libro-details {
+    display: grid;
+    height: 95%;
+    width: 95%;
+    border-radius: 10px;
+    grid-template-columns: 30% 1fr;
+    gap: 20px;
+}
+
+.dettagli-container{
+    background-color: var(--colore-pannello);
+    border-radius: var(--border-radius-pannello);
+    padding: 20px;
+}
+
+.immagine-libro-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--colore-pannello);
+    border-radius: var(--border-radius-pannello);
+    .immagine-libro {
+        height: 80%;
+        width: 80%;
+        object-fit: cover;
+        overflow: hidden;
+        align-self: center;
+        justify-self: center;
+    }
+}

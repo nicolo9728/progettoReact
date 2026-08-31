@@ -34,12 +34,7 @@ export const ListaLibriPage = () => {
                     libri != undefined
                         ? <>
                             <ListaLibriFiltriComponent currentFiltro={filtroLibri} generi={generi} onFiltroCambiato={setFiltroLibri}/>
-                            <ListaLibriGrigliaComponent libri={libri?.elementi ?? []} />
-                            <div>
-                                <button disabled={pagina <= 1} onClick={()=>setPagina(pagina - 1)}>Indietro</button>
-                                <p>{pagina}</p>
-                                <button disabled={pagina >= libri.totalePagine} onClick={()=>setPagina(pagina + 1)}>Avanti</button>
-                            </div>
+                            <ListaLibriGrigliaComponent libri={libri} setPagina={setPagina}/>
                         </>
                         : <></>
 

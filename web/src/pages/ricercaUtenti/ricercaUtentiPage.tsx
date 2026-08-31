@@ -5,6 +5,8 @@ import type { UtenteTrovatoViewModel } from "@biblioteca/common"
 import { getFormData } from "../../helpers/getFormData"
 import { Link } from "react-router-dom"
 
+import styles from "./ricercaUtentiPage.module.css"
+
 export const RicercaUtentiPage = () => {
     const [utentiTrovati, setUtentiTrovati] = useState<UtenteTrovatoViewModel[] | undefined>()
     const [usernameDaCercare, setUsernameDaCercare] = useState<string | undefined>()
@@ -25,30 +27,32 @@ export const RicercaUtentiPage = () => {
 
     return (
         <LayoutPaginaComponent>
-            <h1>Ricerca utenti</h1>
-            <form action="" onSubmit={cercaUtenti}>
-                <input type="text" placeholder="Username da cercare" minLength={3} required name="username" />
-                <button>ricerca</button>
-            </form>
-            {
-                utentiTrovati != undefined && utentiTrovati.length > 0
-                    ?
-                    <div>
-                        {utentiTrovati.map((u) => (
-                            <Link to={`/prestiti?idUtente=${u.id}`} key={u.id}>
-                                <div>
-                                    <h2>{u.username}</h2>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                    : <></>
-            }
-            {
-                utentiTrovati != undefined && utentiTrovati.length == 0 
-                    ? <div><h2>Nessun utente trovato</h2></div>
-                    : <></>
-            }
+            <div className={styles["pagina"]}>
+                <h1>Ricerca utenti</h1>
+                <form action="" onSubmit={cercaUtenti} className={styles["ricerca"]}>
+                    <input type="text" placeholder="Username da cercare" minLength={3} required name="username" />
+                    <button>ricerca</button>
+                </form>
+                {
+                    utentiTrovati != undefined && utentiTrovati.length > 0
+                        ?
+                        <div className={styles["lista-utenti"]}>
+                            {utentiTrovati.map((u) => (
+                                <Link to={`/prestiti?idUtente=${u.id}`} key={u.id}>
+                                    <div className={styles["utente"]}>
+                                        <h2>{u.username}</h2>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                        : <></>
+                }
+                {
+                    utentiTrovati != undefined && utentiTrovati.length == 0
+                        ? <div><h2>Nessun utente trovato</h2></div>
+                        : <></>
+                }
+            </div>
         </LayoutPaginaComponent>
     )
 }

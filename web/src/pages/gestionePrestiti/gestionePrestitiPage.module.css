@@ -1,0 +1,21 @@
+.prestiti-page {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+
+    h1 {
+        align-self: center;
+    }
+
+    .tabella-prestiti-container {
+        height: 100%;
+        overflow: auto;
+        .tabella-prestiti {
+            height: 100%;
+            tr:last-child {
+                height: 100%;
+            }
+        }
+    }
+}

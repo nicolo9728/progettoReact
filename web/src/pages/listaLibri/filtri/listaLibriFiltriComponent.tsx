@@ -18,7 +18,7 @@ export const ListaLibriFiltriComponent = (props: ListaLibriFiltroProps) => {
   
   return (
     <aside className={styles.sidebar}>
-      <h2 className={styles.title}>Filtri</h2>
+      <h1 className={styles.title}>Filtri</h1>
       <input type="text" value={filtro.titolo ?? ""} placeholder='titolo' onChange={(e) => setFiltro({...filtro, titolo: e.target.value})} />
       <select name="" id="" onChange={(e) => setFiltro({...filtro, genere: e.target.value})} value={filtro.genere ?? ""}>
         <option disabled selected value="">Seleziona un genere</option>

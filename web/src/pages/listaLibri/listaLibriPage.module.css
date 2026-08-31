@@ -1,7 +1,9 @@
 .lista-libri-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(250px, 15%) 1fr;
   gap: 20px;
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
 }

@@ -19,11 +19,11 @@ export const LibroDetailsPage = () => {
     }, [])
 
     const onPrenota = async () => {
-        try{
+        try {
             await api.post("prestiti", { isbn })
         }
-        catch(e){
-            if(e instanceof Error)
+        catch (e) {
+            if (e instanceof Error)
                 setMessaggio(e.message)
             else
                 setMessaggio("Si è verificato un problema")
@@ -33,14 +33,20 @@ export const LibroDetailsPage = () => {
     return (
         <LayoutPaginaComponent>
             <LoadingComponent value={libro}>
-                <div className={styles["libro-details"]}>
-                    <img src={libro?.immagine} alt="" />
-                    <h1>{libro?.titolo}</h1>
-                    <p>{libro?.trama}</p>
-                    <AuthComponent ruoli={["Cliente"]}>
-                        <p>{messaggio}</p>
-                        <button onClick={onPrenota}>Prenota</button>
-                    </AuthComponent>
+                <div className={styles["libro-details-container"]}>
+                    <div className={styles["libro-details"]}>
+                        <div className={styles["immagine-libro-container"]}>
+                            <img src={libro?.immagine} alt="" className={styles["immagine-libro"]} />
+                        </div>
+                        <div className={styles["dettagli-container"]}>
+                            <h1>{libro?.titolo}</h1>
+                            <p>{libro?.trama}</p>
+                            <AuthComponent ruoli={["Cliente"]}>
+                                <p className="errore">{messaggio}</p>
+                                <button onClick={onPrenota}>Prenota</button>
+                            </AuthComponent>
+                        </div>
+                    </div>
                 </div>
             </LoadingComponent>
         </LayoutPaginaComponent>

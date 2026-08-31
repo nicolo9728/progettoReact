@@ -5,16 +5,18 @@ import { useApiEndpoint } from "../../hooks/apiHook"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { AuthComponent } from "../../components/authComponent"
 
+import styles from "./gestionePrestitiPage.module.css"
+
 export const ListaPrestitiPage = () => {
 
-    const [searchParams]= useSearchParams()
+    const [searchParams] = useSearchParams()
     const [prestiti, setPrestiti] = useState<PrestitoViewModel[]>([])
     const api = useApiEndpoint()
 
     const idUtente = searchParams.get("idUtente")
 
-    const loadLista = async ()=>{
-        if(idUtente)
+    const loadLista = async () => {
+        if (idUtente)
             await api.get<PrestitoViewModel[]>(`prestiti?idUtente=${idUtente}`).then(setPrestiti)
     }
 
@@ -22,43 +24,46 @@ export const ListaPrestitiPage = () => {
         loadLista()
     }, [])
 
-    const restituisci = async (idPrestito: number)=>{
+    const restituisci = async (idPrestito: number) => {
         await api.post(`prestiti/${idPrestito}/restituzione`, {})
         await loadLista()
     }
 
     return (
         <LayoutPaginaComponent>
-            <div>
+            <div className={styles["prestiti-page"]}>
                 <h1>Lista prestiti</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>titolo</th>
-                            <th>momento prestito</th>
-                            <th>stato</th>
-                            <th>momento restituzione</th>
-                            <th>Scaduto</th>
-                            <AuthComponent ruoli={["Admin"]}>
-                                <th>Operazioni</th>
-                            </AuthComponent>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {prestiti.map((p) => (
-                            <tr key={p.id} style={{backgroundColor: p.isScaduto ? "red" : "unset"}}>
-                                <td>{p.libro.titolo}</td>
-                                <td>{p.momentoPrestito}</td>
-                                <td>{p.stato.stato}</td>
-                                <td>{p.stato.stato == "Restituito" ? p.stato.momentoRestituzione : "Non definita"}</td>
-                                <td>{p.isScaduto ? "Scaduto" : "Non scaduto"}</td>
+                <div className={styles["tabella-prestiti-container"]}>
+                    <table className={styles["tabella-prestiti"]}>
+                        <thead>
+                            <tr>
+                                <th>Titolo</th>
+                                <th>Momento prestito</th>
+                                <th>Stato</th>
+                                <th>Momento restituzione</th>
+                                <th>Scaduto</th>
                                 <AuthComponent ruoli={["Admin"]}>
-                                    <td>{p.stato.stato == "Non restituito" ? <button onClick={()=>restituisci(p.id)}>Restituisci</button> : <></>}</td>
+                                    <th>Operazioni</th>
                                 </AuthComponent>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {prestiti.map((p) => (
+                                <tr key={p.id} style={{ backgroundColor: p.isScaduto ? "red" : "unset" }}>
+                                    <td>{p.libro.titolo}</td>
+                                    <td>{p.momentoPrestito}</td>
+                                    <td>{p.stato.stato}</td>
+                                    <td>{p.stato.stato == "Restituito" ? p.stato.momentoRestituzione : "Non definita"}</td>
+                                    <td>{p.isScaduto ? "Scaduto" : "Non scaduto"}</td>
+                                    <AuthComponent ruoli={["Admin"]}>
+                                        <td>{p.stato.stato == "Non restituito" ? <button onClick={() => restituisci(p.id)}>Restituisci</button> : <></>}</td>
+                                    </AuthComponent>
+                                </tr>
+                            ))}
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </LayoutPaginaComponent>
     )

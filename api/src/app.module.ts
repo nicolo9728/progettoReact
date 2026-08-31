@@ -9,10 +9,19 @@ import { AuthModule } from './auth/auth.module';
 import { GetLibroByIsbnQuery } from './database/queries/getLibroByIsbnQuery';
 import { PrestitoController } from './controllers/prestito.controller';
 import { GetTitoliLibriPrestiti } from './database/queries/getTitoliLibriPrestiti';
+import { GetUtentiByUsername } from './database/queries/getUtentiByUsername';
+import { UtentiController } from './controllers/utenti.controller';
 
 @Module({
   imports: [DatabaseModule, ConfigModule.forRoot({ isGlobal: true }), AuthModule],
-  controllers: [LibriController, PrestitoController],
-  providers: [QueryExecutor, GetLibroByIsbnQuery, GetLibriQuery, GetTitoliLibriPrestiti, StorageService],
+  controllers: [LibriController, PrestitoController, UtentiController],
+  providers: [
+    QueryExecutor, 
+    GetLibroByIsbnQuery, 
+    GetLibriQuery, 
+    GetTitoliLibriPrestiti, 
+    StorageService,
+    GetUtentiByUsername
+  ],
 })
 export class AppModule { }

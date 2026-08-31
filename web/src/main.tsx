@@ -8,6 +8,7 @@ import { LoginPage } from './pages/login/loginPage.tsx'
 import { UserProvider } from './hooks/userHook.tsx'
 import { LibroDetailsPage } from './pages/listaLibri/libroDetails/LibroDetailsPage.tsx'
 import { ListaPrestitiPage } from './pages/gestionePrestiti/gestionePrestitiPage.tsx'
+import { RicercaUtentiPage } from './pages/ricercaUtenti/ricercaUtentiPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/login' element={<LoginPage />} />
             <Route path='/libri/:isbn' element={<LibroDetailsPage />} />
             <Route path='/prestiti' element={<ListaPrestitiPage />} />
+            <Route path='/ricercaUtenti' element={<RicercaUtentiPage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

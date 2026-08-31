@@ -24,6 +24,11 @@ export const LayoutPaginaComponent = (props: { children?: any }) => {
                         <Link to={`/prestiti?idUtente=${user?.userId}`}>Prestiti</Link>
                     </nav>
                 </AuthComponent>
+                <AuthComponent ruoli={["Admin"]}>
+                    <nav>
+                        <Link to="/ricercaUtenti">gestisci restituzioni</Link>
+                    </nav>
+                </AuthComponent>
                 <AuthComponent>
                     <div className={style["utente-loggato"]}>
                         <h2>{user?.username}</h2>

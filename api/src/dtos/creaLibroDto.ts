@@ -14,4 +14,9 @@ export class CreaLibroDto{
     @IsNotEmpty()
     @Length(13)
     isbn: string
+
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(50)
+    genere: string
 }

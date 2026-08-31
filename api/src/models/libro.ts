@@ -19,6 +19,7 @@ export class Libro {
         public readonly titolo: string,
         public readonly immagine: string,
         public readonly trama: string,
+        public readonly genere: string,
         private _quantita: QuantitaDisponibile
     ) { }
 
@@ -30,7 +31,7 @@ export class Libro {
 
     public restituisciCopia() { this._quantita = this._quantita.aumentaScora() }
 
-    public static creaLibro(isbn: string, titolo: string, trama: string, immagine: string): Libro{
-        return new Libro(isbn, titolo, immagine, trama, new QuantitaDisponibile(0))
+    public static creaLibro(isbn: string, titolo: string, trama: string, immagine: string, genere: string): Libro{
+        return new Libro(isbn, titolo, immagine, trama, genere ,new QuantitaDisponibile(0))
     }
 }

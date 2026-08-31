@@ -3,7 +3,8 @@ CREATE TABLE Libri(
     titolo VARCHAR(300) NOT NULL,
     trama TEXT NOT NULL,
     immagine VARCHAR(500) NOT NULL,
-    quantita_disponibile INT NOT NULL
+    quantita_disponibile INT NOT NULL,
+    genere VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Utenti(

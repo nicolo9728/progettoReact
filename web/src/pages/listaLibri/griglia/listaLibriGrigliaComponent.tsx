@@ -13,7 +13,7 @@ export const ListaLibriGrigliaComponent = (props: ListaLibriGrigliaComponentProp
         <main className={styles.contentArea}>
             <div className={styles.libriGrid}>
                 {props.libri.map((item) => (
-                    <Link to={`/libri/${item.isbn}`}>
+                    <Link to={`/libri/${item.isbn}`} key={item.isbn}>
                         <div className={styles.libro} key={item.isbn}>
                             <div className={styles.coverWrapper}>
                                 <img src={item.immagine} alt={item.titolo} className={styles.cover} />

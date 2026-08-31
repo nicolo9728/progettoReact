@@ -13,6 +13,8 @@ import { Libro } from "../models/libro";
 import { diskStorage } from "multer";
 import os from "os"
 import { createReadStream, unlinkSync } from "fs";
+import { QueryLibriDto } from "../dtos/queryLibriDto";
+import { LibroFiltriSpecification, LibroFiltro } from "../filtri/LibroFiltriSpecification";
 
 @Controller("libri")
 export class LibriController {
@@ -38,8 +40,16 @@ export class LibriController {
     }
 
     @Get()
-    public async getLibriByPagina(@Query("pagina") pagina: number = 1) {
-        return this.convertToCorrectUrlPagina(await this.getLibriQuery.query({ pagina }))
+    public async getLibriByPagina(@Query() filtro: QueryLibriDto) {
+
+        const filtroSpecification = LibroFiltriSpecification
+                    .instance()
+                    .addFilterIfDefined(LibroFiltro.titolo, filtro.titolo)
+                    .addFilterIfDefined(LibroFiltro.genere, filtro.genere)
+                    .buildWhere()
+        
+
+        return this.convertToCorrectUrlPagina(await this.getLibriQuery.query({filtro: filtroSpecification}))
     }
 
     @Get(":isbn")
@@ -87,7 +97,7 @@ export class LibriController {
                     throw new InternalServerErrorException("Libro già registrato");
                 }
 
-                const libro = Libro.creaLibro(dto.isbn, dto.titolo, dto.trama, immagine);
+                const libro = Libro.creaLibro(dto.isbn, dto.titolo, dto.trama, immagine, dto.genere);
                 await rep.libroRepository.save(libro);
             });
 

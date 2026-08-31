@@ -10,6 +10,7 @@ export class LibroRepository {
             libroRow["titolo"],
             libroRow["immagine"],
             libroRow["trama"],
+            libroRow["genere"],
             new QuantitaDisponibile(libroRow["quantita_disponibile"])
         );
     }
@@ -23,14 +24,15 @@ export class LibroRepository {
 
     public async save(libro: Libro): Promise<void> {
         const queryText = `
-            INSERT INTO libri (isbn, titolo, immagine, trama, quantita_disponibile)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO libri (isbn, titolo, immagine, trama, quantita_disponibile, genere)
+            VALUES ($1, $2, $3, $4, $5, $6)
             ON CONFLICT (isbn) 
             DO UPDATE SET 
                 titolo = EXCLUDED.titolo,
                 immagine = EXCLUDED.immagine,
                 trama = EXCLUDED.trama,
-                quantita_disponibile = EXCLUDED.quantita_disponibile;
+                quantita_disponibile = EXCLUDED.quantita_disponibile,
+                genere = EXCLUDED.genere;
         `;
 
         const values = [

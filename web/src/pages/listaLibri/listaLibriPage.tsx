@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LayoutPaginaComponent } from "../../components/layoutPagina";
-import { ListaLibriFiltriComponent } from "./filtri/listaLibriFiltriComponent"
+import { ListaLibriFiltriComponent, type FiltroLibri } from "./filtri/listaLibriFiltriComponent"
 import { ListaLibriGrigliaComponent } from "./griglia/listaLibriGrigliaComponent"
 
 import styles from "./listaLibriPage.module.css"
@@ -12,14 +12,19 @@ export const ListaLibriPage = () => {
 
     const [libri, setLibri] = useState<RisultatoPaginatoViewModel<LibroViewModel> | undefined>(undefined)
     const [generi, setGeneri] = useState<GenereViewModel[]>([])
+    const [filtroLibri, setFiltroLibri] = useState<FiltroLibri>({})
+
     const api = useApiEndpoint()
     const [pagina, setPagina] = useState<number>(1)
 
 
     useEffect(() => {
-        api.get<RisultatoPaginatoViewModel<LibroViewModel>>(`libri?pagina=${pagina}`).then((ris) => setLibri(ris))
+        api.get<RisultatoPaginatoViewModel<LibroViewModel>>(
+            `libri?pagina=${pagina}&titolo=${filtroLibri.titolo ? `${filtroLibri.titolo}%` : ""}${filtroLibri.genere ? `&genere=${filtroLibri.genere}` : ""}`)
+            .then((ris) => setLibri(ris))
+            
         api.get<GenereViewModel[]>("generi").then(setGeneri)
-    }, [pagina])
+    }, [pagina, filtroLibri])
 
 
     return (
@@ -28,7 +33,7 @@ export const ListaLibriPage = () => {
                 {
                     libri != undefined
                         ? <>
-                            <ListaLibriFiltriComponent generi={generi}/>
+                            <ListaLibriFiltriComponent currentFiltro={filtroLibri} generi={generi} onFiltroCambiato={setFiltroLibri}/>
                             <ListaLibriGrigliaComponent libri={libri?.elementi ?? []} />
                             <div>
                                 <button disabled={pagina <= 1} onClick={()=>setPagina(pagina - 1)}>Indietro</button>

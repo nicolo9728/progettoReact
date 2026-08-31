@@ -46,6 +46,7 @@ export class LibriController {
                     .instance()
                     .addFilterIfDefined(LibroFiltro.titolo, filtro.titolo)
                     .addFilterIfDefined(LibroFiltro.genere, filtro.genere)
+                    .addPagina(filtro.pagina)
                     .buildWhere()
         
 

@@ -20,6 +20,7 @@ export class LibroFiltriSpecification{
 
     public addPagina(pagina: number){
         this.pagina = pagina
+        return this
     }
 
     public buildWhere(): LibroFiltroResult{

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import type { PoolClient } from 'pg';
+import type { Pool, PoolClient } from 'pg';
 import { Prestito, PrestitoStatus } from '../../models/prestito';
 
 @Injectable()
 export class PrestitoRepository {
-    constructor(private client: PoolClient) {}
+    constructor(private client: PoolClient | Pool) {}
 
     private buildPrestitoFromRow(row: any): Prestito {
         let status: PrestitoStatus;
@@ -43,6 +43,10 @@ export class PrestitoRepository {
         const ris = await this.client.query("SELECT 1 FROM Prestiti WHERE id_utente=$1 and stato='Non restituito'", [idUtente])
 
         return ris.rowCount! > 0
+    }
+
+    public async getPrestitiUtente(idUtente: number): Promise<Prestito[]>{
+        return (await this.client.query("SELECT * FROM prestiti WHERE id_utente = $1", [idUtente])).rows.map(this.buildPrestitoFromRow)
     }
 
     public async save(prestito: Prestito): Promise<void> {

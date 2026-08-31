@@ -13,21 +13,23 @@ export type Repositories = {
 @Injectable({ scope: Scope.REQUEST })
 export class UnitOfWork {
   private client: PoolClient | null = null;
-  public repositories: Repositories | null = null;
 
   constructor(@Inject("DATABASE_POOL") private pool: Pool) { }
 
+  public get repositories(): Repositories{
+    const client = this.client ?? this.pool
+    return {
+        utenteRepository: new UtenteRepository(client),
+        libroRepository: new LibroRepository(client),
+        prestitoRepository: new PrestitoRepository(client)
+      };
+  }
 
   async execute<T>(work: (repos: Repositories) => Promise<T>): Promise<T> {
     this.client = await this.pool.connect();
 
     try {
       await this.client.query('BEGIN');
-      this.repositories = {
-        utenteRepository: new UtenteRepository(this.client),
-        libroRepository: new LibroRepository(this.client),
-        prestitoRepository: new PrestitoRepository(this.client)
-      };
 
       const result = await work(this.repositories);
 
@@ -41,7 +43,6 @@ export class UnitOfWork {
       if (this.client) {
         this.client.release();
         this.client = null;
-        this.repositories = null;
       }
     }
   }

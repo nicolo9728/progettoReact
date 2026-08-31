@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import type { PoolClient } from "pg";
+import type { Pool, PoolClient } from "pg";
 import { Admin, Cliente, Utente } from "../../models/utente";
 
 @Injectable()
 export class UtenteRepository {
-    constructor(private client: PoolClient) { }
+    constructor(private client: PoolClient | Pool) { }
 
     public async getUtenteByUsername(username: string): Promise<Utente | null> {
         const query = `

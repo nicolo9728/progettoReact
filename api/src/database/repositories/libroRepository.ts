@@ -1,8 +1,8 @@
-import { PoolClient } from "pg";
+import { Pool, PoolClient } from "pg";
 import { Libro, QuantitaDisponibile } from "../../models/libro";
 
 export class LibroRepository {
-    constructor(private client: PoolClient) { }
+    constructor(private client: PoolClient | Pool) { }
 
     private buildLibroFromRow(libroRow: any) {
         return new Libro(

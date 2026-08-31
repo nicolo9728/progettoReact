@@ -8,6 +8,7 @@ type AuthComponentProps = {
 
 export const AuthComponent = (props: AuthComponentProps)=>{
     const {user} = useUser()
+    console.log(user, props.anonimo)
     if(!user && !props.anonimo)
         return <></>
     

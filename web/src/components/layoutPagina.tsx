@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import style from "./layoutPagina.module.css"
 import { useUser } from "../hooks/userHook"
 import { useApiEndpoint } from "../hooks/apiHook"
@@ -6,10 +6,13 @@ import { AuthComponent } from "./authComponent"
 
 export const LayoutPaginaComponent = (props: { children?: any }) => {
     const api = useApiEndpoint()
-    const {user} = useUser()
+    const {user, logout} = useUser()
+    const navigation = useNavigate()
 
     const eseguiLogout = async ()=>{
         await api.post("auth/logout", {})
+        await navigation("/")
+        logout()
     }
 
     return (

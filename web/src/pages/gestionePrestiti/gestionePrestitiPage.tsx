@@ -15,7 +15,7 @@ export const ListaPrestitiPage = () => {
     return (
         <LayoutPaginaComponent>
             <div>
-                <h1>Lista presitti</h1>
+                <h1>Lista prestiti</h1>
                 <table>
                     <thead>
                         <tr>

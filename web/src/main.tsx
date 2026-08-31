@@ -9,6 +9,7 @@ import { UserProvider } from './hooks/userHook.tsx'
 import { LibroDetailsPage } from './pages/listaLibri/libroDetails/LibroDetailsPage.tsx'
 import { ListaPrestitiPage } from './pages/gestionePrestiti/gestionePrestitiPage.tsx'
 import { RicercaUtentiPage } from './pages/ricercaUtenti/ricercaUtentiPage.tsx'
+import { CreaLibroPage } from './pages/creaLibro/creaLibroPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/libri/:isbn' element={<LibroDetailsPage />} />
             <Route path='/prestiti' element={<ListaPrestitiPage />} />
             <Route path='/ricercaUtenti' element={<RicercaUtentiPage />} />
+            <Route path='/creaLibro' element={<CreaLibroPage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

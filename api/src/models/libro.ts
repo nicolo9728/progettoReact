@@ -29,4 +29,8 @@ export class Libro {
     public prelevaCopia() { this._quantita = this._quantita.riduciScorta() }
 
     public restituisciCopia() { this._quantita = this._quantita.aumentaScora() }
+
+    public static creaLibro(isbn: string, titolo: string, trama: string, immagine: string): Libro{
+        return new Libro(isbn, titolo, immagine, trama, new QuantitaDisponibile(0))
+    }
 }

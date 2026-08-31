@@ -27,6 +27,7 @@ export const LayoutPaginaComponent = (props: { children?: any }) => {
                 <AuthComponent ruoli={["Admin"]}>
                     <nav>
                         <Link to="/ricercaUtenti">gestisci restituzioni</Link>
+                        <Link to="/creaLibro">crea libro</Link>
                     </nav>
                 </AuthComponent>
                 <AuthComponent>

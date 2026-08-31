@@ -15,4 +15,9 @@ export abstract class Utente {
 
 
 export class Admin extends Utente{}
-export class Cliente extends Utente{}
+
+export class Cliente extends Utente{
+    public static creaCliente(username: string, password: string){
+        return new Cliente(-1, username, bcrypt.hashSync(password, bcrypt.genSaltSync()))
+    }
+}

@@ -10,6 +10,7 @@ import { LibroDetailsPage } from './pages/listaLibri/libroDetails/LibroDetailsPa
 import { ListaPrestitiPage } from './pages/gestionePrestiti/gestionePrestitiPage.tsx'
 import { RicercaUtentiPage } from './pages/ricercaUtenti/ricercaUtentiPage.tsx'
 import { CreaLibroPage } from './pages/creaLibro/creaLibroPage.tsx'
+import { RegistrazionePage } from './pages/registrazione/registrazionePage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/prestiti' element={<ListaPrestitiPage />} />
             <Route path='/ricercaUtenti' element={<RicercaUtentiPage />} />
             <Route path='/creaLibro' element={<CreaLibroPage />} />
+            <Route path='/registrazione' element={<RegistrazionePage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

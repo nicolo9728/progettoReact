@@ -27,4 +27,42 @@ export class UtenteRepository {
             return new Cliente(row.id, row.username, row.password);
         }
     }
+
+    public async checkUsernameUnique(username: string){
+        const ris = await this.client.query("SELECT 1 FROM utenti WHERE username=$1", [username])
+
+        return ris.rowCount! == 0
+    }
+
+    public async save(utente: Utente) {
+        const ruolo = utente instanceof Admin ? 'Admin' : 'Cliente';
+
+        if (utente.id === -1) {
+            const insertQuery = `
+                INSERT INTO utenti (username, password, ruolo)
+                VALUES ($1, $2, $3)
+                RETURNING id
+            `;
+
+            const result = await this.client.query(insertQuery, [
+                utente.username,
+                utente.password,
+                ruolo
+            ]);
+
+            Object.assign(utente, { id: result.rows[0].id });
+        } else {
+            const updateQuery = `
+                UPDATE utenti 
+                SET username = $1, password = $2
+                WHERE id = $3
+            `;
+
+            await this.client.query(updateQuery, [
+                utente.username,
+                utente.password,
+                utente.id
+            ]);
+        }
+    }
 }

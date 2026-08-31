@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, InternalServerErrorException, NotFoundException, Post, Req, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, ForbiddenException, Get, InternalServerErrorException, NotFoundException, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { UnitOfWork } from "../database/unitOfWork";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/jwt.guard";
@@ -28,9 +28,11 @@ export class PrestitoController {
     }
 
     @Get()
-    @UseGuards(JwtAuthGuard, JwtRolesGuard)
-    @Roles(Role.Cliente)
-    public async getPrestiti(@CurrentUser() currentUser: CurrentUserType): Promise<PrestitoViewModel[]> {
+    @UseGuards(JwtAuthGuard)
+    public async getPrestiti(@CurrentUser() currentUser: CurrentUserType, @Query("idUtente") idUtente: number): Promise<PrestitoViewModel[]> {
+        if(currentUser.ruolo != "Admin" && currentUser.userId != idUtente)
+            throw new ForbiddenException("Non autorizzato")
+
         const prestiti = await this.unitOfWork.repositories
             .prestitoRepository
             .getPrestitiUtente(currentUser.userId)

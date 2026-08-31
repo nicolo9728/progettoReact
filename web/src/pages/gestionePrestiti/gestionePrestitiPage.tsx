@@ -2,15 +2,21 @@ import { useEffect, useState } from "react"
 import { LayoutPaginaComponent } from "../../components/layoutPagina"
 import type { PrestitoViewModel } from "@biblioteca/common"
 import { useApiEndpoint } from "../../hooks/apiHook"
+import { useParams, useSearchParams } from "react-router-dom"
+import { useUser } from "../../hooks/userHook"
 
 export const ListaPrestitiPage = () => {
 
+    const [searchParams]= useSearchParams()
     const [prestiti, setPrestiti] = useState<PrestitoViewModel[]>([])
     const api = useApiEndpoint()
 
+    const idUtente = searchParams.get("idUtente")
+
     useEffect(() => {
-        api.get<PrestitoViewModel[]>("prestiti").then(setPrestiti)
-    }, [])
+        if(idUtente)
+            api.get<PrestitoViewModel[]>(`prestiti?idUtente=${idUtente}`).then(setPrestiti)
+    }, [idUtente])
 
     return (
         <LayoutPaginaComponent>

@@ -21,7 +21,7 @@ export const LayoutPaginaComponent = (props: { children?: any }) => {
                 <h1><Link to="/">Libreria online</Link></h1>
                 <AuthComponent ruoli={["Cliente"]}>
                     <nav>
-                        <Link to="/prestiti">Prestiti</Link>
+                        <Link to={`/prestiti?idUtente=${user?.userId}`}>Prestiti</Link>
                     </nav>
                 </AuthComponent>
                 <AuthComponent>

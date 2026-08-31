@@ -1,5 +1,5 @@
 export type UtenteLoggatoViewModel = Readonly<{
     username: string
-    id: number
+    userId: number
     ruolo: string
 }>

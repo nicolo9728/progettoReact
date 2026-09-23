@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, InternalServerErrorException, NotFoundException, Param, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { GetLibriQuery } from "../database/queries/getLibriQuery";
-import { LibroDettailsViewModel, LibroViewModel, RisultatoPaginatoViewModel } from "common";
+import { LibroDettailsViewModel, LibroViewModel, RisultatoPaginatoViewModel } from "@biblioteca/common";
 import { StorageService } from "../services/storageService";
 import { GetLibroByIsbnQuery } from "../database/queries/getLibroByIsbnQuery";
 import { JwtAuthGuard } from "../auth/jwt.guard";

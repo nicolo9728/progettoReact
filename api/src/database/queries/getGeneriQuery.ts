@@ -1,4 +1,4 @@
-import { GenereViewModel } from "common";
+import { GenereViewModel } from "@biblioteca/common";
 import { QueryHandler } from "./queryHandler";
 import { QueryExecutor } from "./queryExecutor";
 import { Injectable } from "@nestjs/common";

@@ -1,4 +1,4 @@
-import { LibroDettailsViewModel } from "common";
+import { LibroDettailsViewModel } from "@biblioteca/common";
 import { QueryHandler } from "./queryHandler";
 import { Injectable } from "@nestjs/common";
 import { QueryExecutor } from "./queryExecutor";

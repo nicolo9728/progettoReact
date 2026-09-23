@@ -1,7 +1,7 @@
 import { QueryHandler } from "./queryHandler";
 import { QueryExecutor } from "./queryExecutor";
 import { Injectable } from "@nestjs/common";
-import { LibroViewModel, RisultatoPaginatoViewModel } from "common";
+import { LibroViewModel, RisultatoPaginatoViewModel } from "@biblioteca/common";
 import { ConfigService } from "@nestjs/config";
 import { LibroFiltroResult } from "../../filtri/LibroFiltriSpecification";
 

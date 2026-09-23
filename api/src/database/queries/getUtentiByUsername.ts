@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { QueryHandler } from "./queryHandler";
-import { UtenteLoggatoViewModel, UtenteTrovatoViewModel } from "common";
+import { UtenteLoggatoViewModel, UtenteTrovatoViewModel } from "@biblioteca/common";
 import { QueryExecutor } from "./queryExecutor";
 
 type Parameter = {

@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { Inject, Injectable } from '@nestjs/common';
-import { RisultatoPaginatoViewModel } from 'common';
+import { RisultatoPaginatoViewModel } from '@biblioteca/common';
 
 
 

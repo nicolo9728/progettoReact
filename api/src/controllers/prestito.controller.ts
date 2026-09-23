@@ -6,7 +6,7 @@ import { JwtRolesGuard } from "../auth/jwtRoles.guard";
 import { Role, Roles } from "../auth/roles.decorator";
 import { CurrentUser } from "../auth/currentUser.decorator";
 import type { CurrentUserType } from "../auth/currentUser.decorator"
-import type { PrestitoViewModel, StatusPrestito, UtenteLoggatoViewModel } from "common";
+import type { PrestitoViewModel, StatusPrestito, UtenteLoggatoViewModel } from "@biblioteca/common";
 import { Prestito, PrestitoStatus } from "../models/prestito";
 import { CreaPrestitoDto } from "../dtos/creaPrestitoDto";
 import { GetTitoliLibriPrestiti } from "../database/queries/getTitoliLibriPrestiti";

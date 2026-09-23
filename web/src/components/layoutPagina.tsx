@@ -20,12 +20,12 @@ export const LayoutPaginaComponent = (props: { children?: any }) => {
             <header className={style["header"]}>
                 <h1><Link to="/">Libreria online</Link></h1>
                 <AuthComponent ruoli={["Cliente"]}>
-                    <nav>
+                    <nav className={style["header-opzioni"]}>
                         <Link to={`/prestiti?idUtente=${user?.userId}`}>Prestiti</Link>
                     </nav>
                 </AuthComponent>
                 <AuthComponent ruoli={["Admin"]}>
-                    <nav>
+                    <nav className={style["header-opzioni"]}>
                         <Link to="/ricercaUtenti">gestisci restituzioni</Link>
                         <Link to="/creaLibro">crea libro</Link>
                     </nav>

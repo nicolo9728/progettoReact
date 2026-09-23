@@ -11,6 +11,7 @@ import { AuthComponent } from "../../../components/authComponent"
 export const LibroDetailsPage = () => {
     const { isbn } = useParams()
     const [libro, setLibro] = useState<LibroDettailsViewModel>()
+    const [successo, setSuccesso] = useState(false)
     const [messaggio, setMessaggio] = useState("")
     const api = useApiEndpoint()
 
@@ -21,8 +22,10 @@ export const LibroDetailsPage = () => {
     const onPrenota = async () => {
         try {
             await api.post("prestiti", { isbn })
+            setSuccesso(true)
         }
         catch (e) {
+            setSuccesso(false)
             if (e instanceof Error)
                 setMessaggio(e.message)
             else
@@ -43,6 +46,7 @@ export const LibroDetailsPage = () => {
                             <p>{libro?.trama}</p>
                             <AuthComponent ruoli={["Cliente"]}>
                                 <p className="errore">{messaggio}</p>
+                                {successo ? <p className={styles["successo"]}>Successo</p> : <></>}
                                 <button onClick={onPrenota}>Prenota</button>
                             </AuthComponent>
                         </div>
